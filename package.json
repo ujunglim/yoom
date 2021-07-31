@@ -1,0 +1,10 @@
+{
+  "name": "yoom",
+  "version": "1.0.0",
+  "description": "Zoom Clone using NodeJS, WebRTC and WebSockets",
+  "main": "index.js",
+  "scripts": {
+  },
+  "author": "YuJung Lim",
+  "license": "ISC"
+}

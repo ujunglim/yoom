@@ -4,7 +4,19 @@
   "description": "Zoom Clone using NodeJS, WebRTC and WebSockets",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon"
   },
   "author": "YuJung Lim",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.14.8",
+    "@babel/node": "^7.14.7",
+    "@babel/preset-env": "^7.14.8",
+    "nodemon": "^2.0.12"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "pug": "^3.0.2"
+  }
 }

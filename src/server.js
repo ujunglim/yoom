@@ -1,4 +1,6 @@
 import express from "express";
+import http from "http";
+import WebSocket from 'ws';
 
 const app = express();
 
@@ -14,7 +16,15 @@ app.use("/public", express.static(__dirname + "/public"));
 
 // render a view
 // create route hanlder which renders home.pug
-app.get("/", (req, res) => res.render("home"));
+app.get("/", (_, res) => res.render("home"));
+app.get("/*", (_, res) => res.redirect("/"));
 
-const handleListen = () => console.log("Listening on http://localhost:3000")
-app.listen(3000, handleListen);
+const handleListen = () => console.log("Listening on http://localhost:3000");
+
+// create http server
+const server = http.createServer(app);
+
+// create WebSocket server
+const wss = new WebSocket.Server({ server });
+
+server.listen(3000, handleListen);

@@ -27,10 +27,12 @@ const server = http.createServer(app);
 // create WebSocket server
 const wss = new WebSocket.Server({ server });
 
-function handleConnection(socket) {
-  console.log(socket);
-}
-
-wss.on("connection", handleConnection);
+// when there's connection, send message by socket
+wss.on("connection", (socket) => {
+  console.log("Connected to browser ✅");
+  socket.on("close", () => console.log("Disconneted from server ❌"));
+  socket.on("message", (message) => console.log(message.toString()));
+  socket.send('Hiiiii');
+});
 
 server.listen(3000, handleListen);

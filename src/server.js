@@ -27,12 +27,17 @@ const server = http.createServer(app);
 // create WebSocket server
 const wss = new WebSocket.Server({ server });
 
+// fake db. who connected to server, put the connection to here
+const sockets = [];
+
 // when there's connection, send message by socket
 wss.on("connection", (socket) => {
+  sockets.push(socket);
   console.log("Connected to browser ✅");
   socket.on("close", () => console.log("Disconneted from server ❌"));
-  socket.on("message", (message) => console.log(message.toString()));
-  socket.send('Hiiiii');
+  socket.on("message", (message) => {
+    sockets.forEach((aSocket) => aSocket.send(message.toString()));
+  });
 });
 
 server.listen(3000, handleListen);

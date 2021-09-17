@@ -36,7 +36,16 @@ wss.on("connection", (socket) => {
   console.log("Connected to browser ✅");
   socket.on("close", () => console.log("Disconneted from server ❌"));
   socket.on("message", (message) => {
-    sockets.forEach((aSocket) => aSocket.send(message.toString()));
+    const msg = JSON.parse(message);
+    switch(msg.type) {
+      case "new_msg":
+        sockets.forEach((aSocket) => aSocket.send(msg.payload.toString()));
+        break;
+      case "nickname":
+        console.log(msg.payload);
+        break;
+    }
+    
   });
 });
 

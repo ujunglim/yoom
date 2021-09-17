@@ -14,3 +14,6 @@ npm i ws
 ```
 npm run dev
 ```
+
+app.js = frontend
+server.js = backend

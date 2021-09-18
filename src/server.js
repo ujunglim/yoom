@@ -33,16 +33,19 @@ const sockets = [];
 // when there's connection, send message by socket
 wss.on("connection", (socket) => {
   sockets.push(socket);
+  // anonymous
+  socket["nickname"] = "Anonymous";
   console.log("Connected to browser ✅");
   socket.on("close", () => console.log("Disconneted from server ❌"));
+  // socket send message
   socket.on("message", (message) => {
     const msg = JSON.parse(message);
     switch(msg.type) {
       case "new_msg":
-        sockets.forEach((aSocket) => aSocket.send(msg.payload.toString()));
+        sockets.forEach((aSocket) => aSocket.send(`${socket.nickname}: ${msg.payload.toString()}`));
         break;
       case "nickname":
-        console.log(msg.payload);
+        socket["nickname"] = msg.payload;
         break;
     }
     

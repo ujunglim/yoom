@@ -10,13 +10,6 @@ html(lang="en")
     header
       h1 Yoom
     main 
-      h2 Welcome to Yoom
-      form#nickname
-        input(type="text", placeholder="Nickname", required)
-        button Save
-      ul
-      form#message
-        input(type="text", placeholder="Write a message", required)
-        button Send
-    button Call
+
+    script(src="/socket.io/socket.io.js")
     script(src="/public/js/app.js")

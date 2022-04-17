@@ -27,7 +27,12 @@ const httpServer = http.createServer(app);
 // create socket io server
 const wsServer = SocketIO(httpServer);
 
-wsServer.on("connection", socket => console.log(socket));
+wsServer.on("connection", socket => {
+  socket.on("enter_room", (msg, doneFunc ) => {
+    console.log(msg);
+    setTimeout(() => doneFunc(), 2000);
+  });
+});
 
 // // create WebSocket server
 // const wss = new WebSocket.Server({ server });

@@ -18,3 +18,7 @@ npm run dev
 
 app.js = frontend
 server.js = backend
+
+socket.onAny()
+socket.id()
+socket.join()

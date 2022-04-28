@@ -19,7 +19,7 @@ const handleRoomSubmit = (event) => {
   const input = form.querySelector("input");
   // enter_room이라는 event를 emit해줌
   // (이벤트이름, payload, 서버에서 호출하는 함수)
-  socket.emit("enter_room", {payload: input.value}, showRoom);
+  socket.emit("enter_room", input.value, showRoom);
   // 1. 어떤 event든 맘대로 만들어서 emit전송 할 수 있음
   // 2. object를 전송할 수 있음(전엔 string만 전송가능)
   roomName = input.value;
@@ -27,3 +27,13 @@ const handleRoomSubmit = (event) => {
 };
 
 form.addEventListener("submit", handleRoomSubmit);
+
+// send someone joined message
+const addMessage = (msg) => {
+  const ul = room.querySelector('ul');
+  const li = document.createElement('li');
+  li.innerText = msg;
+  ul.appendChild(li);
+}
+
+socket.on("welcome", () => addMessage('Someone joined!'));

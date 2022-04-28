@@ -22,3 +22,5 @@ server.js = backend
 socket.onAny()
 socket.id()
 socket.join()
+socket.to() send message to room
+socket.on() = addEventListener

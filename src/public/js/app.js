@@ -7,11 +7,21 @@ let roomName;
 
 roomDiv.hidden = true;
 
+const handleMessageSubmit = (event) => {
+  event.preventDefault();
+  const input = room.querySelector('input');
+  const value = input.value;
+  socket.emit("new_message", value, roomName, () => addMessage(`You: ${value}`));
+  input.value = "";
+}
+
 const showRoom = () => {
   welcomeDiv.hidden = true;
   roomDiv.hidden = false;
   const h3 = roomDiv.querySelector('h3');
   h3.innerText = `Room ${roomName}`;
+  const form = room.querySelector('form');
+  form.addEventListener('submit', handleMessageSubmit);
 };
 
 const handleRoomSubmit = (event) => {
@@ -37,3 +47,5 @@ const addMessage = (msg) => {
 }
 
 socket.on("welcome", () => addMessage('Someone joined!'));
+socket.on("bye", () => addMessage('Someone left😥'));
+socket.on("new_message", (msg) => addMessage(`Someone: ${msg}`));

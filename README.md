@@ -21,6 +21,9 @@ server.js = backend
 
 socket.onAny()
 socket.id()
+socket.rooms
 socket.join()
 socket.to() send message to room
 socket.on() = addEventListener
+
+disconneting !== disconnect

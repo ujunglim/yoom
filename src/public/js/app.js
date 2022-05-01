@@ -15,33 +15,24 @@ const handleMessageSubmit = (event) => {
   input.value = "";
 }
 
-const handleNicknameSubmit = (event) => {
-  event.preventDefault();
-  const input = room.querySelector('#name input');
-  socket.emit("nickname", input.value);
-}
-
 const showRoom = () => {
   welcomeDiv.hidden = true;
   roomDiv.hidden = false;
   const h3 = roomDiv.querySelector('h3');
   h3.innerText = `Room ${roomName}`;
   const msgForm = room.querySelector('#msg');
-  const nameForm = room.querySelector('#name');
   msgForm.addEventListener('submit', handleMessageSubmit);
-  nameForm.addEventListener('submit', handleNicknameSubmit);
 };
 
 const handleRoomSubmit = (event) => {
   event.preventDefault();
-  const input = form.querySelector("input");
-  // enter_room이라는 event를 emit해줌
-  // (이벤트이름, payload, 서버에서 호출하는 함수)
-  socket.emit("enter_room", input.value, showRoom);
+  const nameInput = document.getElementById("name");
+  const roomNameInput = document.getElementById("room_name");
+  // enter_room이라는 event를 emit해줌 (이벤트이름, payload, 서버에서 호출하는 함수)
+  socket.emit("enter_room", nameInput.value, roomNameInput.value, showRoom);
   // 1. 어떤 event든 맘대로 만들어서 emit전송 할 수 있음
   // 2. object를 전송할 수 있음(전엔 string만 전송가능)
-  roomName = input.value;
-  input.value = "";
+  roomName = roomNameInput.value;
 };
 
 form.addEventListener("submit", handleRoomSubmit);

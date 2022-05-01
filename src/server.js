@@ -33,9 +33,10 @@ wsServer.on("connection", socket => {
     console.log(`socket event: ${event}`)
   })
 
-  socket.on("enter_room", (roomName, done) => {
+  socket.on("enter_room", (nickName, roomName, done) => {
     socket.join(roomName);
     done();
+    socket["nickname"] = nickName;
     socket.to(roomName).emit('welcome', socket.nickname);
   });
 
@@ -47,8 +48,6 @@ wsServer.on("connection", socket => {
     socket.to(roomName).emit('new_message', `${socket.nickname}: ${msg}`);
     done();
   })
-
-  socket.on("nickname", nickname => socket["nickname"] = nickname);
 });
 
 // // create WebSocket server

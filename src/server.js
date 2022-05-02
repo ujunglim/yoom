@@ -27,9 +27,22 @@ const httpServer = http.createServer(app);
 // create socket io server
 const wsServer = SocketIO(httpServer);
 
+// get public rooms
+const publicRooms = () => {
+  const {sids, rooms} = wsServer.sockets.adapter;
+  const publicRooms = [];
+  rooms.forEach((_, key) => {
+    if (sids.get(key) === undefined) {
+      publicRooms.push(key);
+    }
+  })
+  return publicRooms;
+}
+
 wsServer.on("connection", socket => {
   socket["nickname"] = 'Anonymus';
   socket.onAny((event) => {
+    console.log(wsServer.sockets.adapter);
     console.log(`socket event: ${event}`)
   })
 
